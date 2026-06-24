@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard IoT | SENAI</title>
+    <link rel="stylesheet" href="src/styles/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/4.3.7/mqtt.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="badge">SENAI Ítalo Bologna</div>
+        <h1>Dashboard IoT</h1>
+        <p>Monitoramento em tempo real — Raspberry Pi Pico 2W</p>
+    </header>
+    <main>
+        <!-- STATUS DA CONEXÃO -->
+        <section class="status-bar">
+            <div class="status-dot" id="status-dot"></div>
+            <span id="status-texto">Desconectado</span>
+            <span id="ultima-atualizacao"></span>
+        </section>
+        <!-- CARDS DOS SENSORES -->
+        <section class="cards">
+            <!-- CARD DO LED (novo) -->
+            <div class="card card-led">
+                <div class="card-icone">💡</div>
+                <div class="card-label">LED</div>
+                <div class="card-valor" id="led-card-valor">--</div>
+                <div class="card-unidade" id="led-card-status">Aguardando...</div>
+            </div>
+            <div class="card card-presenca">
+                <div class="card-icone">🚶</div>
+                <div class="card-label">Presença</div>
+                <div class="card-valor" id="presenca">--</div>
+                <div class="card-unidade" id="presenca-status">Aguardando...</div>
+            </div>
+            <div class="card card-ldr">
+                <div class="card-icone">☀️</div>
+                <div class="card-label">Luminosidade</div>
+                <div class="card-valor" id="luminosidade">--</div>
+                <div class="card-unidade">%</div>
+            </div>
+            <!-- Card câmera ocupa linha inteira -->
+            <div class="card card-camera">
+                <div class="card-icone">📷</div>
+                <div class="card-label">Câmera — Visualização ao vivo</div>
+                <div class="camera-wrapper">
+                    <img id="camera-feed"
+                         src=""
+                         alt="Feed da câmera"
+                         onerror="this.style.display='none'; document.getElementById('camera-offline').style.display='flex'">
+                    <div class="camera-offline" id="camera-offline">
+                        <span>📡</span>
+                        <p>Sem sinal de vídeo</p>
+                        <small>Aguardando stream MJPEG...</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- STATUS DO LED -->
+        <section class="led-status">
+            <div class="led-status-header">
+                <span class="led-status-titulo">Status do LED</span>
+                <span class="led-badge" id="led-badge">DESLIGADO</span>
+            </div>
+            <div class="led-visual">
+                <div class="led-bulb" id="led-bulb">💡</div>
+                <div class="led-info">
+                    <p id="led-descricao">LED apagado — nenhuma presença detectada.</p>
+                    <small class="led-hint">O LED acende automaticamente quando uma presença é detectada pelo sensor.</small>
+                </div>
+            </div>
+        </section>
+        <!-- LOG DE MENSAGENS -->
+        <section class="log-section">
+            <h2>Log de Mensagens</h2>
+            <pre id="log">Aguardando conexão...\n</pre>
+        </section>
+    </main>
+    <script src="src/scripts/script.js"></script>
+</body>
+</html>
